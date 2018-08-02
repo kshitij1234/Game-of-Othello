@@ -1,0 +1,43 @@
+Follow these steps to run the game : 
+
+1: Install Python
+2: Install pip
+3: Install django
+4: Unzip the downloaded assignment tgz into folder assign7
+5: Go to assign7 folder 
+6: Go to folder Othello [It contains the file manage.py] 
+7: open terminal at this location and run the following :
+   >>python manage.py runserver 0.0.0.0:<your_port> 
+   // this creates a server at your system 
+8: Now from any 2 systems (for the 2 players) open the following link : 
+	<your system ip>:<your_port>
+9: From one system create game. It will take you to the following : 
+    <your system ip>:<your_port>/game/<token>/
+10: From the second system click Join Existing Game. It will ask a token. Enter the token contained in the link as in step 9
+
+e.g.)
+
+Say your ip is 172.16.82.123 and you choose port 1234
+
+Then go to folder containing manage.py and run the following : 
+
+python manage.py runserver 0.0.0.0:1234
+
+then from player 1 system run the following in the browser : 
+
+172.16.82.123:8000
+
+then create game :
+
+it redirects to say
+
+172.16.82.123:8000/game/23/
+
+then this means token is 23
+
+Now, for another player open 
+
+172.16.82.123:8000
+
+then click join existing game and provide 23 as the game token.
+Now both players can play the game. Player 2 is black and will get first chance.

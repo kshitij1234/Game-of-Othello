@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block head %}
+    <script src="{% static 'js/mainPage.js'  %}"></script>
+    <style>
+    BODY {
+      font-family: 'Open Sans', sans-serif;
+      background-color: darkslategray;
+
+    }
+    div{
+        padding:20px;
+    }
+    .big{
+        padding:30px;
+        font-size:20px;
+    }
+    .button-container{
+        position: fixed;
+        top: 37%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .hiddenbuttons{
+        position: fixed;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+    <h1 class="text-center" style="color:#ffffff;">OTHELLO GAME</h1>
+
+            <div class="button-container">
+               <div><a href="{% url 'newgame' %}" class="button btn btn-danger big" id="new_game">New Game</a></div>
+                <div><button class="button btn btn-danger big" id="join_game">Join Game</button></div>
+            </div>
+            <div class="hiddenbuttons">
+                <div><input type="text" name="Token" id="tok" placeholder="Enter Token">
+                <button class="button btn btn-danger" id="sub">Submit</button></div>
+            </div>
+
+    </div>
+{% endblock %}

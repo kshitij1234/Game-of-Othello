@@ -1,0 +1,750 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block head %}
+   <style>
+   BODY {
+      font-family: 'Open Sans', sans-serif;
+      color: #FFFFFF;
+      background-color: darkslategray;
+
+    }
+    H1 {
+      font-size: 40px;
+    }
+
+    #colorTurn {
+      font-size: 18px;
+    }
+
+    #grid {
+      margin: 20px auto;
+      display: table;
+      width: 500px;
+      height: 500px;
+      padding: 5px;
+      border-collapse: collapse;
+      background: cornflowerblue;
+      border: 0px solid white;
+      border-radius: 5px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+      -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+      -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+       border-spacing: 5px 5px;
+    }
+
+    .row {
+      display: table-row;
+    }
+
+    .cell {
+      display: table-cell;
+      width: 60px;
+      height: 60px;
+      border: 2px solid #333333;
+      padding: 4px;
+    }
+
+    .disc {
+      width: 50px;
+      height: 50px;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      margin: 2px;
+    }
+
+   </style>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid">
+    <H1 class="text-center" style="padding-left: 300px; font-size: 50px;">OTHELLO GAME</H1>
+    <div class="row">
+    <div id="you" class="text-center col-xs-6 col-xs-offset-0">
+        <h1>YOU</h1>
+        <hr>
+        <h3>TIMER : <span id="yourtimer" class="timer">-</span></h3>
+        <h3>COLOR : <span id="yourcolor" class="color">white</span></h3>
+        <h3>SCORE : <span id="yourscore" class="score">2</span></h3>
+        <br><br>
+        <h1>OPPONENT</h1>
+        <hr>
+        <h3>TIMER : <span id="opptimer" class="timer">-</span></h3>
+        <h3>COLOR : <span id="oppcolor" class="color">black</span></h3>
+        <h3>SCORE : <span id="oppscore" class="score">2</span></h3>
+        <hr>
+        <h3><span id="message"></span></h3>
+        <hr>
+    </div>
+        <div class="col-xs-4 col-xs-offset-2">
+
+    <div id="grid">
+
+    <div class="row">
+      <div class="cell" id="cell00" onclick="selectCell(0,0);"><div class="disc"></div></div>
+      <div class="cell" id="cell01" onclick="selectCell(0,1);"><div class="disc"></div></div>
+      <div class="cell" id="cell02" onclick="selectCell(0,2);"><div class="disc"></div></div>
+      <div class="cell" id="cell03" onclick="selectCell(0,3);"><div class="disc"></div></div>
+      <div class="cell" id="cell04" onclick="selectCell(0,4);"><div class="disc"></div></div>
+      <div class="cell" id="cell05" onclick="selectCell(0,5);"><div class="disc"></div></div>
+      <div class="cell" id="cell06" onclick="selectCell(0,6);"><div class="disc"></div></div>
+      <div class="cell" id="cell07" onclick="selectCell(0,7);"><div class="disc"></div></div>
+    </div>
+    <div class="row">
+      <div class="cell" id="cell10" onclick="selectCell(1,0);"><div class="disc"></div></div>
+      <div class="cell" id="cell11" onclick="selectCell(1,1);"><div class="disc"></div></div>
+      <div class="cell" id="cell12" onclick="selectCell(1,2);"><div class="disc"></div></div>
+      <div class="cell" id="cell13" onclick="selectCell(1,3);"><div class="disc"></div></div>
+      <div class="cell" id="cell14" onclick="selectCell(1,4);"><div class="disc"></div></div>
+      <div class="cell" id="cell15" onclick="selectCell(1,5);"><div class="disc"></div></div>
+      <div class="cell" id="cell16" onclick="selectCell(1,6);"><div class="disc"></div></div>
+      <div class="cell" id="cell17" onclick="selectCell(1,7);"><div class="disc"></div></div>
+    </div>
+    <div class="row">
+      <div class="cell" id="cell20" onclick="selectCell(2,0);"><div class="disc"></div></div>
+      <div class="cell" id="cell21" onclick="selectCell(2,1);"><div class="disc"></div></div>
+      <div class="cell" id="cell22" onclick="selectCell(2,2);"><div class="disc"></div></div>
+      <div class="cell" id="cell23" onclick="selectCell(2,3);"><div class="disc"></div></div>
+      <div class="cell" id="cell24" onclick="selectCell(2,4);"><div class="disc"></div></div>
+      <div class="cell" id="cell25" onclick="selectCell(2,5);"><div class="disc"></div></div>
+      <div class="cell" id="cell26" onclick="selectCell(2,6);"><div class="disc"></div></div>
+      <div class="cell" id="cell27" onclick="selectCell(2,7);"><div class="disc"></div></div>
+    </div>
+    <div class="row">
+      <div class="cell" id="cell30" onclick="selectCell(3,0);"><div class="disc"></div></div>
+      <div class="cell" id="cell31" onclick="selectCell(3,1);"><div class="disc"></div></div>
+      <div class="cell" id="cell32" onclick="selectCell(3,2);"><div class="disc"></div></div>
+      <div class="cell" id="cell33" onclick="selectCell(3,3);"><div class="disc"></div></div>
+      <div class="cell" id="cell34" onclick="selectCell(3,4);"><div class="disc"></div></div>
+      <div class="cell" id="cell35" onclick="selectCell(3,5);"><div class="disc"></div></div>
+      <div class="cell" id="cell36" onclick="selectCell(3,6);"><div class="disc"></div></div>
+      <div class="cell" id="cell37" onclick="selectCell(3,7);"><div class="disc"></div></div>
+    </div>
+    <div class="row">
+      <div class="cell" id="cell40" onclick="selectCell(4,0);"><div class="disc"></div></div>
+      <div class="cell" id="cell41" onclick="selectCell(4,1);"><div class="disc"></div></div>
+      <div class="cell" id="cell42" onclick="selectCell(4,2);"><div class="disc"></div></div>
+      <div class="cell" id="cell43" onclick="selectCell(4,3);"><div class="disc"></div></div>
+      <div class="cell" id="cell44" onclick="selectCell(4,4);"><div class="disc"></div></div>
+      <div class="cell" id="cell45" onclick="selectCell(4,5);"><div class="disc"></div></div>
+      <div class="cell" id="cell46" onclick="selectCell(4,6);"><div class="disc"></div></div>
+      <div class="cell" id="cell47" onclick="selectCell(4,7);"><div class="disc"></div></div>
+    </div>
+    <div class="row">
+      <div class="cell" id="cell50" onclick="selectCell(5,0);"><div class="disc"></div></div>
+      <div class="cell" id="cell51" onclick="selectCell(5,1);"><div class="disc"></div></div>
+      <div class="cell" id="cell52" onclick="selectCell(5,2);"><div class="disc"></div></div>
+      <div class="cell" id="cell53" onclick="selectCell(5,3);"><div class="disc"></div></div>
+      <div class="cell" id="cell54" onclick="selectCell(5,4);"><div class="disc"></div></div>
+      <div class="cell" id="cell55" onclick="selectCell(5,5);"><div class="disc"></div></div>
+      <div class="cell" id="cell56" onclick="selectCell(5,6);"><div class="disc"></div></div>
+      <div class="cell" id="cell57" onclick="selectCell(5,7);"><div class="disc"></div></div>
+    </div>
+      <div class="row">
+      <div class="cell" id="cell60" onclick="selectCell(6,0);"><div class="disc"></div></div>
+      <div class="cell" id="cell61" onclick="selectCell(6,1);"><div class="disc"></div></div>
+      <div class="cell" id="cell62" onclick="selectCell(6,2);"><div class="disc"></div></div>
+      <div class="cell" id="cell63" onclick="selectCell(6,3);"><div class="disc"></div></div>
+      <div class="cell" id="cell64" onclick="selectCell(6,4);"><div class="disc"></div></div>
+      <div class="cell" id="cell65" onclick="selectCell(6,5);"><div class="disc"></div></div>
+      <div class="cell" id="cell66" onclick="selectCell(6,6);"><div class="disc"></div></div>
+      <div class="cell" id="cell67" onclick="selectCell(6,7);"><div class="disc"></div></div>
+    </div>
+      <div class="row">
+      <div class="cell" id="cell70" onclick="selectCell(7,0);"><div class="disc"></div></div>
+      <div class="cell" id="cell71" onclick="selectCell(7,1);"><div class="disc"></div></div>
+      <div class="cell" id="cell72" onclick="selectCell(7,2);"><div class="disc"></div></div>
+      <div class="cell" id="cell73" onclick="selectCell(7,3);"><div class="disc"></div></div>
+      <div class="cell" id="cell74" onclick="selectCell(7,4);"><div class="disc"></div></div>
+      <div class="cell" id="cell75" onclick="selectCell(7,5);"><div class="disc"></div></div>
+      <div class="cell" id="cell76" onclick="selectCell(7,6);"><div class="disc"></div></div>
+      <div class="cell" id="cell77" onclick="selectCell(7,7);"><div class="disc"></div></div>
+      </div>
+    </div>
+        </div>
+        <div id="you" class="text-center col-xs-1 col-xs-offset-2"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    var player={{player|safe}}; //1 for White, 2 for Black
+    var board="{{game.board|safe}}";
+    var token={{game.token|safe}};
+    var playerTurn={{game.playerTurn|safe}};
+    var timer = {{ game.timer|safe }};
+    var yourScore=2;
+    var oppScore=2;
+    var gameOver=false;
+    var hasValidMoves=true;
+    var hadvalidmove=1;
+
+    var ajaxInterval = setInterval(function(){
+        $.ajax({
+            type: "GET",
+            url: {% url 'refresh' %},
+            data: {'token':token}
+        }).done(function(data){
+            board=data["board"];
+            timer=data["timer"];
+            updateGrid();
+            refreshGrid();
+
+            if(playerTurn!=data["playerTurn"])
+            {
+                hasValidMoves=checkValidity();
+                if(hasValidMoves)
+                    hadvalidmove=1;
+                else
+                    hadvalidmove=0;
+            }
+            if(!hasValidMoves)
+            {
+                $("#message").text("You have no valid moves left!");
+                updateDatabase();
+            }
+            else
+            {
+                $("#message").text("You have valid moves left!");
+            }
+            if(data["gameOver"]==1) {
+                gameOver = true;
+                displayGameOver();
+                clearInterval(ajaxInterval);
+            }
+            playerTurn=data["playerTurn"];
+            updateTimer();
+        });
+    },1000);
+
+    function displayGameOver(){
+        var s1 = "CONGRATS!! YOU WIN!!";
+        var s2 = "AW SNAP!! YOU LOSE!!";
+        var s3 = "ITS A DRAW!!!";
+        $("#message").html("");
+        if(yourScore<oppScore){
+            $("#message").text(s2);
+            $("#message").css("color","red");
+        }
+        else if(yourScore>oppScore){
+            $("#message").text(s1);
+            $("#message").css("color","green");
+        }
+        else{
+            $("#message").text(s3);
+            $("#message").css("color","yellow");
+        }
+    }
+
+    function checkValidity(){
+        var ans=false;
+        for(var i=0;i<8;i++){
+            for(var j=0;j<8;j++)
+            {
+                if(grid[i][j]==0)
+                    ans=ans||moveisvalid(i,j);
+            }
+        }
+        return ans;
+    }
+
+    function updateTimer(){
+
+        if(player==playerTurn){
+            $("#yourtimer").html(timer+"s");
+            $("#opptimer").html("-")
+        }
+        else{
+            $("#opptimer").html(timer+"s");
+            $("#yourtimer").html("-");
+        }
+        if(timer<=0) {
+            updateDatabase();
+        }
+    }
+   var grid = [
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 2, 0, 0, 0],
+      [0, 0, 0, 2, 1, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0]
+    ];
+
+    function selectCell(row,col) {
+
+        if(playerTurn==player&&hasValidMoves&&!gameOver) {
+            if ((player == 1) && (grid[row][col] == 0)) {
+                grid[row][col] = 1;
+            } else if ((player == 2) && (grid[row][col] == 0)) {
+                grid[row][col] = 2;
+            }else{
+                return;
+            }
+
+            // now check if move was valid
+            if(!validMove(row,col))
+            {
+                grid[row][col]=0;
+                return;
+            }
+
+            refreshGrid();
+            // send ajax to update database
+            updateDatabase();
+
+        }
+    }
+
+    function moveisvalid(row, col){
+        // go in all eight directions
+        var flag=false,r=row,c=col,other=1;
+        var ans=false,count=0;
+        if(player==1)
+            other=2;
+        // go NW
+        r=row-1;
+        c=col-1;
+        ans=false;
+        count=0;
+        while(r>=0&&c>=0&&r<=7&&c<=7&&(!ans))
+        {
+            if(grid[r][c]==player)
+                ans=true;
+            else if(grid[r][c]==other){
+                r--;
+                c--;
+                count++;
+            }
+            else
+                break;
+        }
+        if(count==0)
+            ans=false;
+        flag=flag||ans;
+        // go N
+        r=row-1;
+        c=col;
+        ans=false;
+        count=0;
+        while(r>=0&&c>=0&&r<=7&&c<=7&&(!ans))
+        {
+            if(grid[r][c]==player)
+                ans=true;
+            else if(grid[r][c]==other){
+                r--;
+                count++;
+            }
+            else
+                break;
+        }
+        if(count==0)
+            ans=false;
+        //console.log(r);
+        flag=flag||ans;
+        // go NE
+        r=row-1;
+        c=col+1;
+        ans=false;
+        count=0;
+        while(r>=0&&c>=0&&r<=7&&c<=7&&(!ans))
+        {
+            if(grid[r][c]==player)
+                ans=true;
+            else if(grid[r][c]==other){
+                r--;
+                c++;
+                count++;
+            }
+            else
+                break;
+        }
+        if(count==0)
+            ans=false;
+        flag=flag||ans;
+        // go E
+        r=row;
+        c=col+1;
+        ans=false;
+        count=0;
+        while(r>=0&&c>=0&&r<=7&&c<=7&&(!ans))
+        {
+            if(grid[r][c]==player)
+                ans=true;
+            else if(grid[r][c]==other){
+                c++;
+                count++;
+            }
+            else
+                break;
+        }
+        if(count==0)
+            ans=false;
+        flag=flag||ans;
+        // go SE
+        r=row+1;
+        c=col+1;
+        ans=false;
+        count=0;
+        while(r>=0&&c>=0&&r<=7&&c<=7&&(!ans))
+        {
+            if(grid[r][c]==player)
+                ans=true;
+            else if(grid[r][c]==other){
+                r++;
+                c++;
+                count++;
+            }
+            else
+                break;
+        }
+        if(count==0)
+            ans=false;
+        flag=flag||ans;
+        // go S
+        r=row+1;
+        c=col;
+        ans=false;
+        count=0;
+        while(r>=0&&c>=0&&r<=7&&c<=7&&(!ans))
+        {
+            if(grid[r][c]==player)
+                ans=true;
+            else if(grid[r][c]==other){
+                r++;
+                count++;
+            }
+            else
+                break;
+        }
+        if(count==0)
+            ans=false;
+        flag=flag||ans;
+        // go SW
+        r=row+1;
+        c=col-1;
+        ans=false;
+        count=0;
+        while(r>=0&&c>=0&&r<=7&&c<=7&&(!ans))
+        {
+            if(grid[r][c]==player)
+                ans=true;
+            else if(grid[r][c]==other){
+                r++;
+                c--;
+                count++;
+            }
+            else
+                break;
+        }
+        if(count==0)
+            ans=false;
+        flag=flag||ans;
+        // go W
+        r=row;
+        c=col-1;
+        ans=false;
+        count=0;
+        while(r>=0&&c>=0&&r<=7&&c<=7&&(!ans))
+        {
+            if(grid[r][c]==player)
+                ans=true;
+            else if(grid[r][c]==other){
+                c--;
+                count++;
+            }
+            else
+                break;
+        }
+        if(count==0)
+            ans=false;
+        flag=flag||ans;
+        return flag;
+    }
+
+    function validMove(row, col){
+        // go in all eight directions
+        var flag=false,r=row,c=col,other=1;
+        var ans=false,count=0;
+        if(player==1)
+            other=2;
+        // go NW
+        r=row-1;
+        c=col-1;
+        ans=false;
+        count=0;
+        while(r>=0&&c>=0&&r<=7&&c<=7&&(!ans))
+        {
+            if(grid[r][c]==player)
+                ans=true;
+            else if(grid[r][c]==other){
+                r--;
+                c--;
+                count++;
+            }
+            else
+                break;
+        }
+        if(count==0)
+            ans=false;
+        if(ans){
+            flag=true;
+            for(var i=row-1,j=col-1;i>=r,j>=c;i--,j--)
+                grid[i][j]=player;
+        }
+        // go N
+        r=row-1;
+        c=col;
+        ans=false;
+        count=0;
+        while(r>=0&&c>=0&&r<=7&&c<=7&&(!ans))
+        {
+            if(grid[r][c]==player)
+                ans=true;
+            else if(grid[r][c]==other){
+                r--;
+                count++;
+            }
+            else
+                break;
+        }
+        if(count==0)
+            ans=false;
+        //console.log(r);
+        if(ans){
+            flag=true;
+            for(var i=row-1,j=col;i>=r;i--) {
+                console.log(i+","+j);
+                grid[i][j] = player;
+            }
+        }
+        // go NE
+        r=row-1;
+        c=col+1;
+        ans=false;
+        count=0;
+        while(r>=0&&c>=0&&r<=7&&c<=7&&(!ans))
+        {
+            if(grid[r][c]==player)
+                ans=true;
+            else if(grid[r][c]==other){
+                r--;
+                c++;
+                count++;
+            }
+            else
+                break;
+        }
+        if(count==0)
+            ans=false;
+        if(ans){
+            flag=true;
+            for(var i=row-1,j=col+1;i>=r,j<=c;i--,j++)
+                grid[i][j]=player;
+        }
+        // go E
+        r=row;
+        c=col+1;
+        ans=false;
+        count=0;
+        while(r>=0&&c>=0&&r<=7&&c<=7&&(!ans))
+        {
+            if(grid[r][c]==player)
+                ans=true;
+            else if(grid[r][c]==other){
+                c++;
+                count++;
+            }
+            else
+                break;
+        }
+        if(count==0)
+            ans=false;
+        if(ans){
+            flag=true;
+            for(var i=row,j=col+1;j<=c;j++)
+                grid[i][j]=player;
+        }
+        // go SE
+        r=row+1;
+        c=col+1;
+        ans=false;
+        count=0;
+        while(r>=0&&c>=0&&r<=7&&c<=7&&(!ans))
+        {
+            if(grid[r][c]==player)
+                ans=true;
+            else if(grid[r][c]==other){
+                r++;
+                c++;
+                count++;
+            }
+            else
+                break;
+        }
+        if(count==0)
+            ans=false;
+        if(ans){
+            flag=true;
+            for(var i=row+1,j=col+1;i<=r,j<=c;i++,j++)
+                grid[i][j]=player;
+        }
+        // go S
+        r=row+1;
+        c=col;
+        ans=false;
+        count=0;
+        while(r>=0&&c>=0&&r<=7&&c<=7&&(!ans))
+        {
+            if(grid[r][c]==player)
+                ans=true;
+            else if(grid[r][c]==other){
+                r++;
+                count++;
+            }
+            else
+                break;
+        }
+        if(count==0)
+            ans=false;
+        if(ans){
+            flag=true;
+            for(var i=row+1,j=col;i<=r;i++)
+                grid[i][j]=player;
+        }
+        // go SW
+        r=row+1;
+        c=col-1;
+        ans=false;
+        count=0;
+        while(r>=0&&c>=0&&r<=7&&c<=7&&(!ans))
+        {
+            if(grid[r][c]==player)
+                ans=true;
+            else if(grid[r][c]==other){
+                r++;
+                c--;
+                count++;
+            }
+            else
+                break;
+        }
+        if(count==0)
+            ans=false;
+        if(ans){
+            flag=true;
+            for(var i=row+1,j=col-1;i<=r,j>=c;i++,j--)
+                grid[i][j]=player;
+        }
+        // go W
+        r=row;
+        c=col-1;
+        ans=false;
+        count=0;
+        while(r>=0&&c>=0&&r<=7&&c<=7&&(!ans))
+        {
+            if(grid[r][c]==player)
+                ans=true;
+            else if(grid[r][c]==other){
+                c--;
+                count++;
+            }
+            else
+                break;
+        }
+        if(count==0)
+            ans=false;
+        if(ans){
+            flag=true;
+            for(var i=row,j=col-1;j>=c;j--)
+                grid[i][j]=player;
+        }
+        return flag;
+    }
+
+    function updateDatabase(){
+        var str="";
+        var next=1;
+        if(player==1)
+            next=2;
+        for(var i=0;i<8;i++){
+            for(var j=0;j<8;j++){
+                str+=(""+grid[i][j]);
+            }
+        }
+        $.ajax({
+            type: "GET",
+            url: {% url 'update' %},
+            data: {'token':token, 'board':str, 'turn':next, 'hadvalidmove': hadvalidmove}
+        }).done(function(data){
+            console.log("sent data");
+        });
+    }
+
+    //A function used to refresh the Othello grid on screen
+    function refreshGrid() {
+         var whiteDiscs=0;
+         var blackDiscs=0;
+      for (var row = 0; row < 8; row++) {
+        for (var col = 0; col < 8; col++) {
+          if (grid[row][col]==0) {
+                    document.getElementById("cell"+row+col).childNodes[0].style.backgroundColor="cornflowerblue";
+          } else if (grid[row][col]==1) { //1 for white
+                    whiteDiscs++;
+                    document.getElementById("cell"+row+col).childNodes[0].style.backgroundColor="#FFFFFF";
+          } else if (grid[row][col]==2) { //2 for black
+                    blackDiscs++;
+                    document.getElementById("cell"+row+col).childNodes[0].style.backgroundColor="#000000";
+           }
+        }
+      }
+      if(player==1){
+          $("#yourscore").html(whiteDiscs);
+          $("#oppscore").html(blackDiscs);
+          yourScore=whiteDiscs;
+          oppScore=blackDiscs;
+      }
+      else{
+          $("#yourscore").html(blackDiscs);
+          $("#oppscore").html(whiteDiscs);
+          yourScore=blackDiscs;
+          oppScore=whiteDiscs;
+      }
+
+    }
+
+    function updateGrid(){
+        for(var i=0;i<8;i++){
+            for(var j=0;j<8;j++){
+                var index=i*8+j;
+                var val=0;
+                if(board.charAt(index)=="1")
+                    val=1;
+                else if(board.charAt(index)=="2")
+                    val=2;
+                grid[i][j]=val;
+            }
+        }
+    }
+
+    function initialize(){
+        var s1="White";
+        var s2="Black";
+        if(player==2){
+            s2=s1;
+            s1="Black";
+        }
+        $("#yourcolor").html(s1);
+        $("#oppcolor").html(s2);
+        if(player==1)
+            $("#oppcolor").css("color","black");
+        else
+            $("#yourcolor").css("color","black");
+    }
+
+    initialize();
+
+</script>
+
+{% endblock %}

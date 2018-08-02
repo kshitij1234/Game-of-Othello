@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block head %}
+    <style>
+    BODY {
+      font-family: 'Open Sans', sans-serif;
+      background-color: darkslategray;
+
+    }
+    .error{
+        color: snow;
+        font-size: 30px;
+        padding: 50px;
+    }
+    .btn-danger{
+        padding: 20px;
+    }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="container">
+    <h1 class="text-center" style="color:#ffffff;">OTHELLO GAME</h1>
+        <div class="text-center error">Error - Wrong Token or Game already full<br><br>
+    <a href="{% url 'mainPage' %}" class="button btn btn-danger" id="new_game">Go Back</a></div>
+
+    </div>
+{% endblock %}
